@@ -122,6 +122,13 @@
             ctx.restore();
         }
         function draw() {
+            
+            var NoteOneSel = document.getElementById("NoteOne").value;
+            var NoteTwoSel = document.getElementById("NoteTwo").value;
+            var NoteThreeSel = document.getElementById("NoteThree").value;
+            // console.log(NoteOneSel)
+            
+            
             var canvas = document.getElementById("canvas");
             var context = canvas.getContext("2d");
 
@@ -129,9 +136,9 @@
             showAxes(context);
             context.save();            
             
-            freq1 = 0.10
-            freq2 = 0.08
-            freq3 = 0.05
+            freq1 = 0.1/NoteThreeSel
+            freq2 = 0.1/NoteTwoSel
+            freq3 = 0.1/NoteOneSel
 
             // plot bottom sine.
             plotSine(context, step, 50, freq1, 0.6, "rgb(168, 156, 50)");
@@ -147,8 +154,9 @@
             
             step += 2;
             window.requestAnimationFrame(draw);
+
         }       
-        function init() {
+        function init(test) {
             window.requestAnimationFrame(draw);
         }
         var step = -4;
@@ -159,7 +167,54 @@
     
     <canvas id="canvas" width="1000" height="400"></canvas>
       <div>
-          test - will put widgets here. 
+          <!-- <form name="form1" id="form1" onsubmit="setGlobal(NoteOne.selected)"> -->
+        First Note: <select name="NoteOne" id="NoteOne">
+          <option value="1" selected="selected">A</option>
+          <option value="1.0666666666" selected="selected">Bb</option>
+          <option value="1.125" selected="selected">B</option>
+          <option value="1.2" selected="selected">C</option>
+          <option value="1.25" selected="selected">Db</option>
+          <option value="1.3333333333" selected="selected">D</option>
+          <option value="1.4142135623" selected="selected">Eb</option>
+          <option value="1.5" selected="selected">E</option>
+          <option value="1.6" selected="selected">F</option>
+          <option value="1.6666666666" selected="selected">Gb</option>
+          <option value="1.7777777777" selected="selected">G</option>
+          <option value="2" selected="selected">Ab</option>
+        </select>
+        <br><br>
+        Second Note: <select name="NoteTwo" id="NoteTwo">
+            <option value="1" selected="selected">A</option>
+            <option value="1.0666666666" selected="selected">Bb</option>
+            <option value="1.125" selected="selected">B</option>
+            <option value="1.2" selected="selected">C</option>
+            <option value="1.25" selected="selected">Db</option>
+            <option value="1.3333333333" selected="selected">D</option>
+            <option value="1.4142135623" selected="selected">Eb</option>
+            <option value="1.5" selected="selected">E</option>
+            <option value="1.6" selected="selected">F</option>
+            <option value="1.6666666666" selected="selected">Gb</option>
+            <option value="1.7777777777" selected="selected">G</option>
+            <option value="2" selected="selected">Ab</option>
+        </select>
+        <br><br>
+        Third Note: <select name="NoteThree" id="NoteThree">
+            <option value="1" selected="selected">A</option>
+            <option value="1.0666666666" selected="selected">Bb</option>
+            <option value="1.125" selected="selected">B</option>
+            <option value="1.2" selected="selected">C</option>
+            <option value="1.25" selected="selected">Db</option>
+            <option value="1.3333333333" selected="selected">D</option>
+            <option value="1.4142135623" selected="selected">Eb</option>
+            <option value="1.5" selected="selected">E</option>
+            <option value="1.6" selected="selected">F</option>
+            <option value="1.6666666666" selected="selected">Gb</option>
+            <option value="1.7777777777" selected="selected">G</option>
+            <option value="2" selected="selected">Ab</option>
+        </select>
+        <br><br>
+        <!-- <input type="submit" value="Submit">
+      </form> -->
       </div>
 </body>
 
