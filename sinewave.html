@@ -12,10 +12,18 @@
             ctx.beginPath();
             ctx.strokeStyle = "rgb(128,128,128)";
             
-            // X-Axis
+            // First X-Axis - testing div
+            ctx.moveTo(xMin, height*5/6);
+            ctx.lineTo(width, height*5/6);
+
+            // Second X-Axis
+            ctx.moveTo(xMin, height*2/3);
+            ctx.lineTo(width, height*2/3);
+            
+            // Third X-Axis
             ctx.moveTo(xMin, height/2);
             ctx.lineTo(width, height/2);
-            
+
             // Y-Axis
             ctx.moveTo(width/2, 0);
             ctx.lineTo(width/2, height);
@@ -38,14 +46,15 @@
             ctx.lineWidth = 1;
             ctx.stroke();
         }
-        function plotSine(ctx, xOffset, yOffset) {
+        function plotSine(ctx, xOffset, yOffset, frequency = 0.05, 
+                test_param = 2, color = "rgb(66,44,255)") {
             var width = ctx.canvas.width;
             var height = ctx.canvas.height;
             var scale = 20;
 
             ctx.beginPath();
             ctx.lineWidth = 2;
-            ctx.strokeStyle = "rgb(66,44,255)";
+            ctx.strokeStyle = color;
 
             // console.log("Drawing point...");
             // drawPoint(ctx, yOffset+step);
@@ -53,11 +62,12 @@
             var x = 4;
             var y = 0;
             var amplitude = 40;
-            var frequency = 20;
+            // OMG, how polite of them to give this variable a good name. 
             //ctx.moveTo(x, y);
             ctx.moveTo(x, 50);
             while (x < width) {
-                y = height/2 + amplitude * Math.sin((x+xOffset)/frequency);
+                // first addend is midline, second addend is amplitude. 
+                y = height/(2* test_param) + amplitude/2 * Math.sin((x+xOffset)*frequency);
                 ctx.lineTo(x, y);
                 x++;
                 // console.log("x="+x+" y="+y);
@@ -65,7 +75,8 @@
             ctx.stroke();
             ctx.save();
 
-            console.log("Drawing point at y=" + y);
+            // Use caution, iterates extremely rapidly. 
+            //console.log("Drawing point at y=" + y);
             drawPoint(ctx, y);
             ctx.stroke();
             ctx.restore();
@@ -78,10 +89,18 @@
             showAxes(context);
             context.save();            
             
-            plotSine(context, step, 50);
+            //plot baseline sine wave on top.
+            plotSine(context, step, 50, 0.05, 1);
+            // plot another sine.
+            plotSine(context, step, 50, 0.08, 0.75, "rgb(168, 50, 50)");
+            // plot another sine.
+            plotSine(context, step, 50, 0.1, 0.6, "rgb(168, 156, 50)");
+
+            // Plot summative wave. 
+
             context.restore();
             
-            step += 4;
+            step += 2;
             window.requestAnimationFrame(draw);
         }       
         function init() {
@@ -94,7 +113,7 @@
 
 <body onload="init()">
     
-    <canvas id="canvas" width="500" height="100"></canvas>
+    <canvas id="canvas" width="500" height="400"></canvas>
       
 </body>
 
